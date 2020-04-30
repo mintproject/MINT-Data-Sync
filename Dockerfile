@@ -6,8 +6,6 @@ RUN pip install -r requirements.txt
 
 COPY cronjobs /etc/crontabs/root
 
-COPY sync.py /sync.py
+COPY sync_gldas.py /sync_gldas.py
 
 CMD ["crond", "-f", "-d", "8"]
-
-#CMD ["/bin/bash", "-c"]
