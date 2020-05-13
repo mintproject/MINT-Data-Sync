@@ -23,3 +23,20 @@ By default, the above container will start a cron process that will trigger `syn
 by editing `cronjobs` file and rebuilding the Docker image
 
 
+## Adding new data sources
+
+To add a new data source, you would need to write a scraper that checks the source for data availability. Assuming that the scraper is implemented, the general data sync process goes as follows:
+
+1) Check data source for the latest data available (by e.g., temporal coverage)
+
+2) Check MINT data catalog for the latest available data
+
+3) If there is a mismatch, generate a list of missing resources based on 1) and 2)
+
+4) [Optionally] Download missing resources
+
+5) [Optionally] Upload them to MINT data storage
+
+6) Generate appropriate resource metadata
+
+7) Register missing resources in MINT data catalog
