@@ -1,5 +1,5 @@
 # MINT-Data-Sync
-Scripts to download new datasets as it becomes available and register them in MINT Data Catalog
+Scripts to be used by MINT or other systems to download new datasets as they become available and register them in MINT Data Catalog. 
 
 ## Instructions
 
@@ -18,6 +18,8 @@ Scripts to download new datasets as it becomes available and register them in MI
 ### 4. Run it 
 
 ```docker run -e "earthdata_username=REPLACE_ME" -e "earthdata_password=REPLACE_ME" -e "mint_data_username=REPLACE_ME" -e "mint_data_password=REPLACE_ME" -it --rm mint-data-sync:latest```
+
+Currently, we sync [GLDAS](https://ldas.gsfc.nasa.gov/gldas) data, which requires [Earthdata](https://earthdata.nasa.gov/) login credentials; hence the need for `earthdata_username` and `earthdata_password` credentials above.
 
 By default, the above container will start a cron process that will trigger `sync.py` script every day at 01:00 (am). That logic can be modified
 by editing `cronjobs` file and rebuilding the Docker image
