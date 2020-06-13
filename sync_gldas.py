@@ -317,6 +317,7 @@ def upload_file(source, filename):
 	target_dir = os.path.join("GLDAS", metadata['year'], metadata['day_of_year']) + "/"
 	upload_target = os.path.join(target_dir, filename)
 
+
 	folder_exists = does_object_exist(target_dir)
 	print(target_dir + " exists? " + str(folder_exists))
 
@@ -476,7 +477,16 @@ def sync_date(date_str):
 
 	# upload to owncloud
 	for filename in filenames:
-		data_url = upload_file(sync_state[filename]['local_path'], filename)
+		upload_target = upload_file(sync_state[filename]['local_path'], filename)
+		upload_target_parts = upload_target.split("/")
+		
+		upload_year = upload_target_parts[1]
+		upload_doy = upload_target_parts[2]
+		upload_filename = upload_target_parts[3]
+
+		prefix = "https://files.mint.isi.edu/s/OHUdhphbirUoJ8o/download?path="
+
+		data_url = prefix + "/" + upload_year + "/" + upload_doy + "&files=" + upload_filename
 
 		sync_state[filename]['data_url'] = data_url
 
