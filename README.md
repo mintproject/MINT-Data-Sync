@@ -1,5 +1,5 @@
 # MINT-Data-Sync
-Scripts to download new datasets as it becomes available and register them in MINT Data Catalog
+Scripts to be used by MINT or other systems to download new datasets as they become available and register them in MINT Data Catalog. 
 
 ## Instructions
 
@@ -19,7 +19,26 @@ Scripts to download new datasets as it becomes available and register them in MI
 
 ```docker run -e "earthdata_username=REPLACE_ME" -e "earthdata_password=REPLACE_ME" -e "mint_data_username=REPLACE_ME" -e "mint_data_password=REPLACE_ME" -it --rm mint-data-sync:latest```
 
+Currently, we sync [GLDAS](https://ldas.gsfc.nasa.gov/gldas) data, which requires [Earthdata](https://earthdata.nasa.gov/) login credentials; hence the need for `earthdata_username` and `earthdata_password` credentials above.
+
 By default, the above container will start a cron process that will trigger `sync.py` script every day at 01:00 (am). That logic can be modified
 by editing `cronjobs` file and rebuilding the Docker image
 
 
+## Adding new data sources
+
+To add a new data source, you would need to write a scraper that checks the source for data availability. Assuming that the scraper is implemented, the general data sync process goes as follows:
+
+1) Check data source for the latest data available (by e.g., temporal coverage)
+
+2) Check MINT data catalog for the latest available data
+
+3) If there is a mismatch, generate a list of missing resources based on 1) and 2)
+
+4) [Optionally] Download missing resources
+
+5) [Optionally] Upload them to MINT data storage
+
+6) Generate appropriate resource metadata
+
+7) Register missing resources in MINT data catalog
