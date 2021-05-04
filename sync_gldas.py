@@ -353,13 +353,13 @@ def upload_file(source, filename):
 ##################################### DCAT ######################################################################################
 #################################################################################################################################
 
-dcat_url = "https://api.mint-data-catalog.org"
+dcat_url = "https://data-catalog.mint.isi.edu/"
 dcat_request_headers = {'Content-Type': "application/json"}
 
 gldas_dataset_id = '5babae3f-c468-4e01-862e-8b201468e3b5'
 		
 def last_dcat_gldas_date():
-	url = "https://api.mint-data-catalog.org/datasets/get_dataset_temporal_coverage"
+	url = "https://data-catalog.mint.isi.edu/datasets/get_dataset_temporal_coverage"
 
 	request_headers = {'Content-Type': "application/json"}
 
